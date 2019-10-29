@@ -177,7 +177,7 @@ robot2:
   projection_evaluator: joints(robot2_shoulder_pan_joint,robot2_shoulder_lift_joint)
   longest_valid_segment_fraction: 0.005
 robot1ee:
-  default_planner_config: None
+  default_planner_config: ""
   planner_configs:
     - SBL
     - EST
@@ -203,7 +203,7 @@ robot1ee:
     - SPARS
     - SPARStwo
 robot2ee:
-  default_planner_config: None
+  default_planner_config: ""
   planner_configs:
     - SBL
     - EST

@@ -135,36 +135,6 @@
           <wrench>1.89097 -1.59804 -9819.93 0 -0 0</wrench>
         </link>
       </model>
-      <!-- <model name='unit_box_0_clone_clone_0_0_0_0_0_0'>
-        <pose frame=''>0.510386 -0.463749 1.19869 1e-06 -0 0.073329</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose frame=''>0.510386 -0.463749 1.19869 1e-06 -0 0.073329</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='unit_box_0_clone_clone_0_0_0_0_0_clone_0_0'>
-        <pose frame=''>0.866993 -0.233068 1.19869 1e-06 -0 0.058227</pose>
-        <scale>0.8  0.8</scale>
-        <link name='link'>
-          <pose frame=''>0.866993 -0.233068 1.19869 1e-06 -0 0.058227</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='unit_box_0_clone_clone_0_0_0_0_0_clone_1'>
-        <pose frame=''>0.456455 -0.748173 1.19867 0.000125 -5.1e-05 0.068372</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose frame=''>0.456455 -0.748173 1.19867 0.000125 -5.1e-05 0.068372</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model> -->
       <light name='sun'>
         <pose frame=''>0 0 10 0 -0 0</pose>
       </light>
@@ -597,7 +567,7 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose frame=''>0.82506 -0.276053 -0.000181 -0.000128 0.000261 -1.60303</pose>
     </model>
-    <!-- <model name='unit_box_0_clone_clone_0_0_0_0_0_0'>
+    <model name='object'>
       <link name='link'>
        
       <pose frame=''>0 0 0 -0 -0 -0 </pose> 
@@ -698,7 +668,7 @@
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
       <pose frame=''>0.510386 -0.463749 1.19869 1e-06 -0 0.073329</pose>
-    </model> -->
+    </model>
     <!-- camera1  -->
     <model name='kinect'>
       <static>1</static>

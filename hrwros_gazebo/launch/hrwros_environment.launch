@@ -23,7 +23,7 @@
 
 
   <!-- Start move_group -->
-  <!-- <include file="$(find multi_moveit_config)/launch/move_group.launch"/> -->
+  <include file="$(find multi_moveit_config)/launch/move_group.launch"/>
 
 
   <!-- <include file="$(find hrwros_gazebo)/launch/spawn_turtlebot.launch"/> -->
