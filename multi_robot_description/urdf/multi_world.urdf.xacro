@@ -1,0 +1,177 @@
+<?xml version="1.0"?> <!--this tag must be in the first line of the xml files-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="multi_world">
+<!-- rosrun xacro xacro.py dual_arm_robot.urdf.xacro >  dual_arm_robot.urdf -->
+  <xacro:property name="pi" value="3.1415926535897931"/>
+  <xacro:arg name="prefix_robot1" default="robot1_"/>
+  <xacro:arg name="prefix_robot2" default="robot2_"/>
+  <xacro:arg name="limited" default="true"/>
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro"/>
+
+  <!-- ur5 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro"/> 
+
+  <!-- ft300 -->
+  <xacro:include filename="$(find robotiq_force_torque_sensor)/urdf/robotiq_fts300.urdf.xacro" />
+
+  <!-- endeffector -->
+  <xacro:include filename="$(find multi_robot_description)/urdf/endeffector.urdf.xacro"/>
+	
+	<!-- color macros -->
+	<xacro:macro name="material_orange_transparent">
+		<material name="orange_transparent">
+			<color rgba="1 0.5 0 0.4"/>
+		</material>
+	</xacro:macro>
+	<xacro:macro name="material_blue_transparent">
+		<material name="blue_transparent">
+			<color rgba="0 0.8 1 0.4"/>
+		</material>
+	</xacro:macro>
+	
+	<xacro:material_orange_transparent />
+	<xacro:material_blue_transparent />
+  	
+  <!-- end of color macros -->
+  <!-- Stand macros -->
+
+	<link name="stand_Base1">
+    <inertial>
+      <mass value="1000" />
+      <origin xyz="0 0 0.5" rpy="0 0 0" />
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+		<visual>
+      <origin xyz="0 0 0.5" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.08" length="0.9"/>
+      </geometry>
+      <material name="orange_transparent"/>
+		</visual>
+		<collision>
+      <origin xyz="0 0 0.5" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.08" length="0.9"/>
+      </geometry>
+      <material name="blue_transparent"/>
+		</collision>
+	</link>
+
+	<link name="stand_Base2">
+    <inertial>
+      <mass value="1000" />
+      <origin xyz="0 0 0.5" rpy="0 0 0" />
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+    </inertial>
+		<visual>
+      <origin xyz="0 0 0.5" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.08" length="0.9"/>
+      </geometry>
+      <material name="orange_transparent"/>
+		</visual>
+		<collision>
+      <origin xyz="0 0 0.5" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.08" length="0.9"/>
+      </geometry>
+      <material name="blue_transparent"/>
+		</collision>
+	</link>
+
+  <!-- End of stand macros-->
+  <!-- Place the stand in the world -->
+	<link name="world"/>
+    <!-- place world reference -->
+	<joint name="world_to_stand_Base1" type="fixed">
+		<parent link="world"/>
+		<child link="stand_Base1"/>
+		<origin xyz="-0.1 -0.25 0.0" rpy="0 0 0"/>
+	</joint>
+
+	<joint name="world_to_stand_Base2" type="fixed">
+		<parent link="world"/>
+		<child link="stand_Base2"/>
+		<origin xyz="1.4 -0.25 0.0" rpy="0 0 0"/>
+	</joint>
+
+	
+  <!-- place robot 1    -->
+  <xacro:ur5_robot prefix="$(arg prefix_robot1)" joint_limited="$(arg limited)"/>
+  <joint name="stand1_to_robot1" type="fixed">
+    <parent link="stand_Base1"/>
+    <child link ="$(arg prefix_robot1)base_link"/>
+   <origin xyz="0 0 1" rpy="0 0 1.57"/>
+  </joint>
+
+
+  <!-- place robotiq_fts300 to robot1 -->
+	
+  <xacro:robotiq_fts300 prefix="" parent="$(arg prefix_robot1)ee_link"/>
+
+  <!-- place ur5 robot 1endeffector  -->
+	
+  <xacro:endeffector prefix="$(arg prefix_robot1)"/>
+  <joint name="$(arg prefix_robot1)ee_mount" type="fixed">
+    <parent link="fts_toolside" />
+    <child link = "$(arg prefix_robot1)ee_frame" />
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0 " />
+  </joint>
+	
+  
+
+  <!-- place ur5 robot2  -->
+  <xacro:ur5_robot prefix="$(arg prefix_robot2)" joint_limited="$(arg limited)"/>
+  <joint name="stand2_to_robot2" type="fixed">
+    <parent link="stand_Base2"/>
+    <child link ="$(arg prefix_robot2)base_link"/>
+    <origin xyz="0 0 1" rpy="0 0 1.57"/>
+  </joint>
+
+  <!-- place ur5 robot2 endeffector -->
+	
+  <xacro:endeffector prefix="$(arg prefix_robot2)"/>
+  <joint name="$(arg prefix_robot2)ee_mount" type="fixed">
+    <parent link="$(arg prefix_robot2)ee_link" />
+    <child link = "$(arg prefix_robot2)ee_frame" />
+    <origin xyz="0.0 0.0 0.0" rpy="${pi/2.0} 0.0 ${pi/2.0}" />
+  </joint>
+
+<!-- gripper -->
+  <!-- <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
+  <xacro:robotiq_85_gripper prefix="$(arg prefix_robot2)" parent="$(arg prefix_robot2)ee_link" >
+      <origin xyz="0.0 0 0.005" rpy="0 ${-pi/2} 0"/>
+  </xacro:robotiq_85_gripper>
+
+  <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
+  <xacro:robotiq_85_gripper prefix="$(arg prefix_robot1)" parent="$(arg prefix_robot1)ee_link" >
+      <origin xyz="0.0 0 0.005" rpy="0 ${-pi/2} 0"/>
+  </xacro:robotiq_85_gripper> -->
+
+  <!-- camera1 stand -->
+  <link name="camera1_stand">
+    <!-- <origin xyz="0.6 1 2" rpy="0 0.785 -1.57" /> -->
+    <origin xyz="0 0 0 " rpy="0 0 0" />
+  </link>
+
+  <joint name="camera_fixed" type="fixed">
+    <parent link="world"/>
+    <child link="camera1_stand"/>
+    <origin xyz="0.6 1.0 2" rpy="-2.355 0.0 3.14" /> 
+    <!-- camera position x - robot position = x , camera postion y - robot poisition = y -->
+    <!-- use this parameter  -->
+  </joint>  
+  <!-- camera2 stand -->
+  <link name="camera2_stand">
+  <origin xyz="0 0 0 " rpy="0 0 0" />
+  </link>
+
+  <joint name="camera2_fixed" type="fixed">
+    <parent link="world"/>
+    <child link="camera2_stand"/>
+    <origin xyz="0.6 -1.5 2" rpy="3.925 0.0 0" /> 
+    <!-- camera position x - robot position = x , camera postion y - robot poisition = y -->
+  </joint>  
+</robot>

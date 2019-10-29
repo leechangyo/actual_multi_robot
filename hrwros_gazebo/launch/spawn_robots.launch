@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <rosparam file="$(find hrwros_gazebo)/config/robot_controller.yaml" command="load"/>
+  <!--Load controllers-->
+  <node name="spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="robot1_controller robot2_controller joint_state_controller"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find multi_robot_description)/urdf/multi_world.urdf.xacro" />    
+ <!--spawn a robot in gazebo world-->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
+    output="screen" args="-urdf -param
+    robot_description -x 0 -y 0.0 -z 0 -R 0 -P 0 -Y 0 -model multi_robot"/>
+
+</launch>

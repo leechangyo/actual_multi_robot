@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/chanlee/catkin_ws/devel/include",
+        "/opt/ros/kinetic/include",
+        "/home/chanlee/catkin_ws/src/multi_robot/multi_robot_description/include",
+        "/home/chanlee/catkin_ws/src/multi_robot/robotiq/robotiq_action_server/include",
+        "/home/chanlee/catkin_ws/src/multi_robot/robotiq/robotiq_c_model_control/include",
+        "/home/chanlee/catkin_ws/src/multi_robot/robotiq/robotiq_ethercat/include",
+        "/home/chanlee/catkin_ws/src/multi_robot/robotiq/robotiq_force_torque_sensor/include",
+        "/home/chanlee/catkin_ws/src/multi_robot/robotiq/robotiq_s_model_control/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}
